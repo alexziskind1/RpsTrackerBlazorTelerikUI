@@ -1,4 +1,5 @@
 ﻿
+@using RPS.Web.WASM.Models
 @inject NavigationManager NavigationManager
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
@@ -17,7 +18,14 @@
     </div>
 </div>
 
-<div class="table-responsive">
+
+<TelerikGrid Height="550px" Data="GridData">
+    <GridColumns>
+        <GridColumn Field="@(nameof(PtItemGridModel.Title))" Width="120px" />
+    </GridColumns>
+</TelerikGrid>
+
+@*<div class="table-responsive">
     <table class="table table-striped table-sm table-hover">
         <thead>
             <tr>
@@ -54,7 +62,7 @@
             }
         </tbody>
     </table>
-</div>
+</div>*@
 
 
 <link href="css/backlog.css" rel="stylesheet" />

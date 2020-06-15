@@ -34,6 +34,23 @@ namespace RPS.Web.WASM.Components.Backlog
 
         public List<PtItem> PtItems { get; set; }
 
+        /*Grid related */
+
+        public List<PtItemGridModel> GridData
+        {
+            get
+            {
+                if (PtItems != null)
+                {
+                    return PtItems.Select(i => new PtItemGridModel(i)).ToList();
+                }
+                else
+                {
+                    return new List<PtItemGridModel>();
+                }
+            }
+        }
+
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
