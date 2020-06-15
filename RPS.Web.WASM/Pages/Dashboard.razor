@@ -1,7 +1,9 @@
 ﻿@page "/dashboard"
 @page "/dashboard/{Months:int}/{UserId:int}"
 
-@using RPS.Web.WASM.Components.Dashboard; 
+@using RPS.Core.Models 
+@using RPS.Web.WASM.Components.Dashboard
+@using RPS.Web.WASM.Components.Backlog
 @inject NavigationManager NavigationManager
 
 <div class="dashboard">
@@ -21,6 +23,28 @@
         </div>
 
         <div class="btn-toolbar mb-2 mb-md-0">
+
+            <div class="btn-group mr-2">
+
+                <TelerikComboBox Data="@Assignees" TextField="FullName" ValueField="Id" @bind-Value="SelectedAssigneeId"
+                                 Placeholder="Select assignee.." ClearButton="true" Filterable="true" FilterOperator="StringFilterOperator.Contains" Width="260px">
+                    <ItemTemplate>
+                        @{
+                            var item = context as PtUser;
+                            <div class="row" style="margin-left: 5px;">
+                                <UserAvatar User="item" ClassName="li-avatar rounded mx-auto"/>
+                                <span style="margin-left: 5px;">@item.FullName</span>
+                            </div>
+                        }
+
+                    </ItemTemplate>
+                </TelerikComboBox>
+
+
+
+            </div>
+
+
             <div class="btn-group mr-2">
 
                 <TelerikButton @onclick="@(e => DateRangeFilter(3))">3 Months</TelerikButton>
@@ -103,8 +127,7 @@
         Months = months;
         UserId = UserId.HasValue ? UserId.Value : 0;
         NavigationManager.NavigateTo($"/dashboard/{Months}/{UserId}");
-        Refresh();
-    } 
+    }
 }
 
 
