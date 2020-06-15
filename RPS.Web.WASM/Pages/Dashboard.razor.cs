@@ -28,8 +28,7 @@ namespace RPS.Web.WASM.Pages
         public int IssueCountActive { get { return IssueCountOpen + IssueCountClosed; } }
         public decimal IssueCloseRate { get { if (IssueCountActive == 0) return 0;  return Math.Round((decimal)IssueCountClosed / (decimal)IssueCountActive * 100m, 2); } }
 
-
-
+        public PtDashboardFilter Filter { get; set; }
 
         protected override void OnParametersSet()
         {
@@ -37,13 +36,12 @@ namespace RPS.Web.WASM.Pages
             Refresh();
         }
 
-
         private void Refresh()
         {
             DateTime start = Months.HasValue ? DateTime.Now.AddMonths(Months.Value * -1) : DateTime.Now.AddYears(-5);
             DateTime end = DateTime.Now;
 
-            PtDashboardFilter filter = new PtDashboardFilter
+            Filter = new PtDashboardFilter
             {
                 DateStart = start,
                 DateEnd = end,
@@ -51,14 +49,14 @@ namespace RPS.Web.WASM.Pages
             };
 
             
-            var statusCounts = RpsDashRepo.GetStatusCounts(filter);
+            var statusCounts = RpsDashRepo.GetStatusCounts(Filter);
             IssueCountOpen = statusCounts.OpenItemsCount;
             IssueCountClosed = statusCounts.ClosedItemsCount;
 
             if (Months.HasValue)
             {
-                DateStart = filter.DateStart;
-                DateEnd = filter.DateEnd;
+                DateStart = Filter.DateStart;
+                DateEnd = Filter.DateEnd;
             }
         }
     }

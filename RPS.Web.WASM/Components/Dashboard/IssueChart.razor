@@ -1,0 +1,33 @@
+﻿
+<TelerikChart>
+
+    <ChartTitle Text="All Issues"></ChartTitle>
+
+    <ChartSeriesItems>
+        
+        <ChartSeries Type="ChartSeriesType.Column" Name="Open" Data="@ItemsOpenByMonth" Gap="0.06" Color="#CC3458" Opacity="0.7">
+            <ChartSeriesStack Enabled="true"></ChartSeriesStack>
+        </ChartSeries>
+        <ChartSeries Type="ChartSeriesType.Column" Name="Closed" Data="@ItemsClosedByMonth"  Gap="0.06" Color="#35C473" Opacity="0.7">
+            <ChartSeriesStack Enabled="true"></ChartSeriesStack>
+        </ChartSeries>
+    </ChartSeriesItems>
+
+    <ChartValueAxes>
+        <ChartValueAxis Color="#35C473"></ChartValueAxis>
+    </ChartValueAxes>
+
+    <ChartCategoryAxes>
+        <ChartCategoryAxis Categories="@Categories" Type="ChartCategoryAxisType.Date" BaseUnit="ChartCategoryAxisBaseUnit.Months">
+            <ChartCategoryAxisMajorGridLines Visible="false"></ChartCategoryAxisMajorGridLines>
+        </ChartCategoryAxis>
+    </ChartCategoryAxes>
+
+    <ChartLegend Position="Telerik.Blazor.ChartLegendPosition.Bottom">
+    </ChartLegend>
+</TelerikChart>
+
+
+@code {
+
+}

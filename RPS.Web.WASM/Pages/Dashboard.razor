@@ -1,7 +1,7 @@
 ﻿@page "/dashboard"
 @page "/dashboard/{Months:int}/{UserId:int}"
 
-
+@using RPS.Web.WASM.Components.Dashboard; 
 @inject NavigationManager NavigationManager
 
 <div class="dashboard">
@@ -81,6 +81,8 @@
             <div class="row">
                 <div class="col-sm-12">
                     <h3>All issues</h3>
+
+                    <IssueChart Filter="Filter" />
 
                 </div>
             </div>
