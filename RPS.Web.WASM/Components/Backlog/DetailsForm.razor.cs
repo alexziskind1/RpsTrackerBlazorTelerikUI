@@ -44,7 +44,7 @@ namespace RPS.Web.WASM.Components.Backlog
             Model.SelectedItemType = Item.Type;
             Model.SelectedStatus = Item.Status;
             Model.SelectedPriority = Item.Priority;
-            Model.SelectedAssigneeId = Item.Assignee.Id.ToString();
+            Model.SelectedAssigneeId = Item.Assignee.Id;
             Model.Users = users.ToList();
         }
 
@@ -66,7 +66,7 @@ namespace RPS.Web.WASM.Components.Backlog
                 Priority = Model.SelectedPriority,
                 Status = Model.SelectedStatus,
                 Type = Model.SelectedItemType,
-                AssigneeId = Int32.Parse(Model.SelectedAssigneeId)
+                AssigneeId = Model.SelectedAssigneeId
             };
         }
 

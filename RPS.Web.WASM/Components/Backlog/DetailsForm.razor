@@ -4,6 +4,9 @@
         <div class="form-group row">
             <label for="title" class="col-sm-2 col-form-label">Title</label>
             <div class="col-sm-10">
+
+                <TelerikTextBox @bind-Value="Model.Title" Width="100%"></TelerikTextBox>
+
                 <InputText id="title" @bind-Value="Model.Title" class="form-control" />
             </div>
         </div>
@@ -11,62 +14,46 @@
         <div class="form-group row">
             <label for="description" class="col-sm-2 col-form-label">Description</label>
             <div class="col-sm-10">
-                <InputTextArea id="description" @bind-Value="Model.Description" class="form-control" />
+                <InputTextArea id="description" @bind-Value="Model.Description" class="k-textbox k-state-valid telerik-blazor" @attributes="width:" />
             </div>
         </div>
 
         <div class="form-group row">
             <label for="estimate" class="col-sm-2 col-form-label">Estimate</label>
             <div class="col-sm-10">
-                <InputNumber id="estimate" @bind-Value="Model.Estimate" class="form-control" />
+                <TelerikNumericTextBox Id="estimate" Max="20" Min="1" Step="1" @bind-Value="Model.Estimate"></TelerikNumericTextBox>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="type" class="col-sm-2 col-form-label">Type</label>
             <div class="col-sm-10">
-                <InputSelect id="type" @bind-Value="Model.SelectedItemType" class="form-control">
-                    @foreach (var item in Model.ItemTypes)
-                    {
-                        <option value="@item.ToString()">@item.ToString()</option>
-                    }
-                </InputSelect>
+                <TelerikDropDownList Id="type" Data="@Model.ItemTypes"  @bind-Value="Model.SelectedItemType">
+                </TelerikDropDownList>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="status" class="col-sm-2 col-form-label">Status</label>
             <div class="col-sm-10">
-                <InputSelect id="status" @bind-Value="Model.SelectedStatus" class="form-control">
-                    @foreach (var item in Model.Statuses)
-                    {
-                        <option value="@item.ToString()">@item.ToString()</option>
-                    }
-                </InputSelect>
+                <TelerikDropDownList Id="status" Data="@Model.Statuses" @bind-Value="Model.SelectedStatus">
+                </TelerikDropDownList>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="priority" class="col-sm-2 col-form-label">Priority</label>
             <div class="col-sm-10">
-                <InputSelect id="priority" @bind-Value="Model.SelectedPriority" class="form-control">
-                    @foreach (var item in Model.Priorities)
-                    {
-                        <option value="@item.ToString()">@item.ToString()</option>
-                    }
-                </InputSelect>
+                <TelerikDropDownList Id="priority" Data="@Model.Priorities" @bind-Value="Model.SelectedPriority">
+                </TelerikDropDownList>
             </div>
         </div>
 
         <div class="form-group row">
             <label for="assignee" class="col-sm-2 col-form-label">Assignee</label>
             <div class="col-sm-10">
-                <InputSelect id="assignee" @bind-Value="Model.SelectedAssigneeId" class="form-control">
-                    @foreach (var item in Model.Users)
-                    {
-                        <option value="@item.Id">@item.FullName</option>
-                    }
-                </InputSelect>
+                <TelerikDropDownList Id="assignee" Data="@Model.Users" @bind-Value="Model.SelectedAssigneeId" TextField="FullName" ValueField="Id">
+                </TelerikDropDownList>
             </div>
         </div>
 
