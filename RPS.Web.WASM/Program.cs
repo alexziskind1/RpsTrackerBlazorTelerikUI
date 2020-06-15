@@ -28,6 +28,8 @@ namespace RPS.Web.WASM
             builder.Services.AddSingleton<IPtTasksRepository, PtTasksRepository>(c => new PtTasksRepository(tempDataContext));
             builder.Services.AddSingleton<IPtCommentsRepository, PtCommentsRepository>(c => new PtCommentsRepository(tempDataContext));
 
+            builder.Services.AddTelerikBlazor();
+
             await builder.Build().RunAsync();
         }
     }

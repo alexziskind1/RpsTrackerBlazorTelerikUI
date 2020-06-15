@@ -1,20 +1,23 @@
 ﻿@inherits LayoutComponentBase
 
-<MainMenu />
 
-<div class="container-fluid">
-    <div class="row">
+    <TelerikRootComponent>
+        <MainMenu />
 
-        <SideMenu />
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <div class="container-fluid">
+            <div class="row">
 
-            @Body
+                <SideMenu />
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                    
+                    @Body
 
-        </main>
-    </div>
+                </main>
+            </div>
 
-    <footer>
-        <p>&copy; @DateTime.Now.Year - RPS</p>
-    </footer>
+            <footer>
+                <p>&copy; @DateTime.Now.Year - RPS</p>
+            </footer>
 
-</div>
+        </div>
+    </TelerikRootComponent>

@@ -5,9 +5,9 @@
     <h1 class="h2">Backlog</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group mr-2">
-            <button class="btn btn-outline-secondary"  @onclick="@(e => SelectPreset("My"))">My Items</button>
-            <button class="btn btn-outline-secondary"  @onclick="@(e => SelectPreset("Open"))">Open Items</button>
-            <button class="btn btn-outline-secondary"  @onclick="@(e => SelectPreset("Closed"))">Done Items</button>
+            <TelerikButton @onclick="@(e => SelectPreset("My"))">My Items</TelerikButton>
+            <TelerikButton @onclick="@(e => SelectPreset("Open"))">Open Items</TelerikButton>
+            <TelerikButton @onclick="@(e => SelectPreset("Closed"))">Closed Items</TelerikButton>
         </div>
 
         <div class="btn-group mr-2">

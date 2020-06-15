@@ -22,15 +22,10 @@
 
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                <button class="pt-class-range-filter btn btn-outline-secondary" @onclick="@(e => DateRangeFilter(3))">
-                    3 Months
-                </button>
-                <button class="pt-class-range-filter btn btn-outline-secondary" @onclick="@(e => DateRangeFilter(6))">
-                    6 Months
-                </button>
-                <button class="pt-class-range-filter btn btn-outline-secondary" @onclick="@(e => DateRangeFilter(12))">
-                    1 Year
-                </button>
+
+                <TelerikButton @onclick="@(e => DateRangeFilter(3))">3 Months</TelerikButton>
+                <TelerikButton @onclick="@(e => DateRangeFilter(6))">6 Months</TelerikButton>
+                <TelerikButton @onclick="@(e => DateRangeFilter(12))">1 Year</TelerikButton>
             </div>
         </div>
     </div>
