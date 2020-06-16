@@ -165,3 +165,8 @@
     max-height: 400px;
     overflow: scroll;
 }
+
+.rps-text-area {
+    width: 100%;
+    height: 60px;
+}
