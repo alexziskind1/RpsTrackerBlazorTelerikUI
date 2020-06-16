@@ -10,7 +10,6 @@ namespace RPS.Web.Server.Models.Forms
 {
     public class DetailsFormModel
     {
-
         public int Id { get; set; }
         [Required]
         public string Title { get; set; }
@@ -22,7 +21,7 @@ namespace RPS.Web.Server.Models.Forms
         public StatusEnum SelectedStatus { get; set; }
         public ItemTypeEnum SelectedItemType { get; set; }
 
-        public string SelectedAssigneeId { get; set; }
+        public int SelectedAssigneeId { get; set; }
 
         public readonly List<ItemTypeEnum> ItemTypes = new List<ItemTypeEnum> { ItemTypeEnum.Bug, ItemTypeEnum.Chore, ItemTypeEnum.Impediment, ItemTypeEnum.PBI };
         public readonly List<StatusEnum> Statuses = new List<StatusEnum> { StatusEnum.Closed, StatusEnum.Open, StatusEnum.ReOpened, StatusEnum.Submitted };

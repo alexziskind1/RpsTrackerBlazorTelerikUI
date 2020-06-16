@@ -28,7 +28,7 @@ namespace RPS.Web.Server.Components.Backlog
 
         protected override void OnInitialized()
         {
-            
+
             PopulateDetailsFormModel();
             base.OnInitialized();
         }
@@ -44,7 +44,7 @@ namespace RPS.Web.Server.Components.Backlog
             Model.SelectedItemType = Item.Type;
             Model.SelectedStatus = Item.Status;
             Model.SelectedPriority = Item.Priority;
-            Model.SelectedAssigneeId = Item.Assignee.Id.ToString();
+            Model.SelectedAssigneeId = Item.Assignee.Id;
             Model.Users = users.ToList();
         }
 
@@ -52,7 +52,7 @@ namespace RPS.Web.Server.Components.Backlog
         {
             var updateItem = ToPtUpdateItem();
             RpsItemsRepo.UpdateItem(updateItem);
-             NavigationManager.NavigateTo("/backlog");
+            NavigationManager.NavigateTo("/backlog");
         }
 
         private PtUpdateItem ToPtUpdateItem()
@@ -66,7 +66,7 @@ namespace RPS.Web.Server.Components.Backlog
                 Priority = Model.SelectedPriority,
                 Status = Model.SelectedStatus,
                 Type = Model.SelectedItemType,
-                AssigneeId = Int32.Parse(Model.SelectedAssigneeId)
+                AssigneeId = Model.SelectedAssigneeId
             };
         }
 
