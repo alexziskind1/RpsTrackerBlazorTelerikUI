@@ -1,7 +1,9 @@
 ﻿@page "/dashboard"
 @page "/dashboard/{Months:int}/{UserId:int}"
 
-
+@using RPS.Core.Models
+@using RPS.Web.Server.Components.Dashboard
+@using RPS.Web.Server.Components.Backlog
 @inject NavigationManager NavigationManager
 
 <div class="dashboard">
@@ -13,24 +15,19 @@
                 <span class="small text-uppercase text-muted d-block">Statistics</span>
                 @if (DateStart.HasValue && DateEnd.HasValue)
                 {
-    <span id="spanFilteredDateRange">
-        @DateStart.Value.ToString("MMM d, yyyy") - @DateEnd.Value.ToString("MMM d, yyyy")
-    </span>}
+                    <span id="spanFilteredDateRange">
+                        @DateStart.Value.ToString("MMM d, yyyy") - @DateEnd.Value.ToString("MMM d, yyyy")
+                    </span>}
 
             </h2>
         </div>
 
         <div class="btn-toolbar mb-2 mb-md-0">
+
             <div class="btn-group mr-2">
-                <button class="pt-class-range-filter btn btn-outline-secondary" @onclick="@(e => DateRangeFilter(3))">
-                    3 Months
-                </button>
-                <button class="pt-class-range-filter btn btn-outline-secondary" @onclick="@(e => DateRangeFilter(6))">
-                    6 Months
-                </button>
-                <button class="pt-class-range-filter btn btn-outline-secondary" @onclick="@(e => DateRangeFilter(12))">
-                    1 Year
-                </button>
+                <TelerikButton @onclick="@(e => DateRangeFilter(3))">3 Months</TelerikButton>
+                <TelerikButton @onclick="@(e => DateRangeFilter(6))">6 Months</TelerikButton>
+                <TelerikButton @onclick="@(e => DateRangeFilter(12))">1 Year</TelerikButton>
             </div>
         </div>
     </div>
@@ -87,6 +84,8 @@
                 <div class="col-sm-12">
                     <h3>All issues</h3>
 
+                    <IssueChart Filter="Filter" />
+
                 </div>
             </div>
 
@@ -100,15 +99,12 @@
 
 <link href="css/dashboard.css" rel="stylesheet" />
 
-@code { 
+@code {
     private void DateRangeFilter(int months)
     {
         Months = months;
         UserId = UserId.HasValue ? UserId.Value : 0;
         NavigationManager.NavigateTo($"/dashboard/{Months}/{UserId}");
         Refresh();
-    } 
+    }
 }
-
-
-

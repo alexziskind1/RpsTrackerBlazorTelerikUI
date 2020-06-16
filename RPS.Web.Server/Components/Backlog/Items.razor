@@ -1,60 +1,99 @@
 ﻿
+@using RPS.Core.Models
 @inject NavigationManager NavigationManager
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
     <h1 class="h2">Backlog</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group mr-2">
-            <button class="btn btn-outline-secondary"  @onclick="@(e => SelectPreset("My"))">My Items</button>
-            <button class="btn btn-outline-secondary"  @onclick="@(e => SelectPreset("Open"))">Open Items</button>
-            <button class="btn btn-outline-secondary"  @onclick="@(e => SelectPreset("Closed"))">Done Items</button>
+            <TelerikButton @onclick="@(e => SelectPreset("My"))">My Items</TelerikButton>
+            <TelerikButton @onclick="@(e => SelectPreset("Open"))">Open Items</TelerikButton>
+            <TelerikButton @onclick="@(e => SelectPreset("Closed"))">Closed Items</TelerikButton>
         </div>
 
         <div class="btn-group mr-2">
-            <NavLink href="Create" class="btn btn-primary" >Add</NavLink>
+            <NavLink href="Create" class="btn btn-primary">Add</NavLink>
         </div>
 
     </div>
 </div>
 
-<div class="table-responsive">
-    <table class="table table-striped table-sm table-hover">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Assignee</th>
-                <th>Title</th>
-                <th>Status</th>
-                <th>Priority</th>
-                <th>Estimate</th>
-                <th>Created</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in PtItems)
-            {
-            <tr class="pt-table-row" @onclick="(e)=> { RowSelected(item.Id); }">
 
-                <td>
-                    <ItemTypeIndicator ItemType="@item.Type" ClassName="backlog-icon" />
-                </td>
-                <td>
-                    <UserAvatar User="@item.Assignee" />
-                </td>
-                <td><span class="li-title">@item.Title</span></td>
-                <td>
-                    @item.Status
-                </td>
-                <td>
-                    <PriorityIndicator priority="@item.Priority" />
-                </td>
-                <td><span class="li-estimate">@item.Estimate</span></td>
-                <td><span class="li-date">@item.DateCreated.ToString("MMM d, yyyy")</span></td>
-            </tr>
-            }
-        </tbody>
-    </table>
-</div>
+<TelerikGrid Height="550px" Data="PtItems" Pageable="true" Sortable="true" SelectionMode="GridSelectionMode.Single" SelectedItemsChanged="@((IEnumerable<PtItem> items) => ItemSelectedHandler(items))">
+    <GridColumns>
+        <GridColumn Field="@(nameof(PtItem.Type))" Title=" " Width="50px">
+            <Template>
+                @{
+                    var item = context as PtItem;
+                    <ItemTypeIndicator ItemType="item.Type" ClassName="backlog-icon" />
+                }
+            </Template>
+        </GridColumn>
+        <GridColumn Field="@(nameof(PtItem.Assignee))" Title="Assignee" Width="120px">
+            <Template>
+                @{
+                    var item = context as PtItem;
+                    <UserAvatar User="item.Assignee" />
+                }
+            </Template>
+        </GridColumn>
+        <GridColumn Field="@(nameof(PtItem.Title))" Title="Title" />
+        <GridColumn Field="@(nameof(PtItem.Priority))" Width="100px">
+            <Template>
+                @{
+                    var item = context as PtItem;
+                    <PriorityIndicator Priority="item.Priority" />
+                }
+            </Template>
+        </GridColumn>
+        <GridColumn Field="@(nameof(PtItem.Estimate))" Width="100px" />
+        <GridColumn Field="DateCreated" Title="Created" Width="160px">
+            <Template>
+                @((context as PtItem).DateCreated.ToString("MMM d, yyyy"))
+            </Template>
+        </GridColumn>
+    </GridColumns>
+</TelerikGrid>
+
+
+@*<div class="table-responsive">
+        <table class="table table-striped table-sm table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Assignee</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Estimate</th>
+                    <th>Created</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in PtItems)
+                {
+                <tr class="pt-table-row" @onclick="(e)=> { RowSelected(item.Id); }">
+
+                    <td>
+                        <ItemTypeIndicator ItemType="@item.Type" ClassName="backlog-icon" />
+                    </td>
+                    <td>
+                        <UserAvatar User="@item.Assignee" />
+                    </td>
+                    <td><span class="li-title">@item.Title</span></td>
+                    <td>
+                        @item.Status
+                    </td>
+                    <td>
+                        <PriorityIndicator priority="@item.Priority" />
+                    </td>
+                    <td><span class="li-estimate">@item.Estimate</span></td>
+                    <td><span class="li-date">@item.DateCreated.ToString("MMM d, yyyy")</span></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>*@
 
 
 <link href="css/backlog.css" rel="stylesheet" />
@@ -68,6 +107,15 @@
     private void RowSelected(int itemId)
     {
         NavigationManager.NavigateTo($"/details/{itemId}/details");
+    }
+
+    private void ItemSelectedHandler(IEnumerable<PtItem> items)
+    {
+        var firstItem = items.FirstOrDefault();
+        if (firstItem != null)
+        {
+            RowSelected(firstItem.Id);
+        }
     }
 }
 

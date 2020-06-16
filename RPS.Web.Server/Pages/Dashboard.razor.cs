@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor.Internal;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration.UserSecrets;
+using RPS.Core.Models;
 using RPS.Core.Models.Dto;
 using RPS.Data;
 
@@ -38,8 +39,33 @@ namespace RPS.Web.Server.Pages
         public int IssueCountActive { get { return IssueCountOpen + IssueCountClosed; } }
         public decimal IssueCloseRate { get { if (IssueCountActive == 0) return 0;  return Math.Round((decimal)IssueCountClosed / (decimal)IssueCountActive * 100m, 2); } }
 
+        public PtDashboardFilter Filter { get; set; }
+
+        /* Combobox filter additions */
+        [Inject]
+        private IPtUserRepository RpsUserRepo { get; set; }
 
 
+        public int? SelectedAssigneeId
+        {
+            get
+            {
+                return UserId;
+            }
+            set
+            {
+                UserId = value.HasValue ? value : 0;
+                Months = Months.HasValue ? Months : 12;
+                NavigationManager.NavigateTo($"/dashboard/{Months}/{UserId}");
+            }
+        }
+        public List<PtUser> Assignees { get; set; }
+
+        protected override void OnInitialized()
+        {
+            Assignees = RpsUserRepo.GetAll().ToList();
+            base.OnInitialized();
+        }
 
         protected override void OnParametersSet()
         {
@@ -53,7 +79,7 @@ namespace RPS.Web.Server.Pages
             DateTime start = Months.HasValue ? DateTime.Now.AddMonths(Months.Value * -1) : DateTime.Now.AddYears(-5);
             DateTime end = DateTime.Now;
 
-            PtDashboardFilter filter = new PtDashboardFilter
+            Filter = new PtDashboardFilter
             {
                 DateStart = start,
                 DateEnd = end,
@@ -61,14 +87,14 @@ namespace RPS.Web.Server.Pages
             };
 
             
-            var statusCounts = RpsDashRepo.GetStatusCounts(filter);
+            var statusCounts = RpsDashRepo.GetStatusCounts(Filter);
             IssueCountOpen = statusCounts.OpenItemsCount;
             IssueCountClosed = statusCounts.ClosedItemsCount;
 
             if (Months.HasValue)
             {
-                DateStart = filter.DateStart;
-                DateEnd = filter.DateEnd;
+                DateStart = Filter.DateStart;
+                DateEnd = Filter.DateEnd;
             }
         }
     }

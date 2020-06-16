@@ -29,6 +29,7 @@ namespace RPS.Web.Server
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddTelerikBlazor();
             // services.AddSingleton<WeatherForecastService>();
 
             var tempDataContext = new PtInMemoryContext();
