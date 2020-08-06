@@ -19,7 +19,7 @@
 </div>
 
 
-<TelerikGrid Height="550px" Data="PtItems" Pageable="true" Sortable="true" SelectionMode="GridSelectionMode.Single" SelectedItemsChanged="@((IEnumerable<PtItem> items) => ItemSelectedHandler(items))">
+<TelerikGrid Height="550px" Data="PtItems" Pageable="true" Sortable="true" OnRowClick="@OnRowClickHandler">
     <GridColumns>
         <GridColumn Field="@(nameof(PtItem.Type))" Title=" " Width="50px">
             <Template>
@@ -109,13 +109,9 @@
         NavigationManager.NavigateTo($"/details/{itemId}/details");
     }
 
-    private void ItemSelectedHandler(IEnumerable<PtItem> items)
+    private void OnRowClickHandler(GridRowClickEventArgs args)
     {
-        var firstItem = items.FirstOrDefault();
-        if (firstItem != null)
-        {
-            RowSelected(firstItem.Id);
-        }
+        RowSelected((args.Item as PtItem).Id);
     }
 }
 
