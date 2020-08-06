@@ -40,9 +40,9 @@
             </div>
 
             <div class="btn-group mr-2">
-                <TelerikButton @onclick="@(e => DateRangeFilter(3))">3 Months</TelerikButton>
-                <TelerikButton @onclick="@(e => DateRangeFilter(6))">6 Months</TelerikButton>
-                <TelerikButton @onclick="@(e => DateRangeFilter(12))">1 Year</TelerikButton>
+                <TelerikButton OnClick="@(_ => DateRangeFilter(3))">3 Months</TelerikButton>
+                <TelerikButton OnClick="@(_ => DateRangeFilter(6))">6 Months</TelerikButton>
+                <TelerikButton OnClick="@(_ => DateRangeFilter(12))">1 Year</TelerikButton>
             </div>
         </div>
     </div>
