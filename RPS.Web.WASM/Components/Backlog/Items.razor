@@ -30,7 +30,7 @@
                 }
             </Template>
         </GridColumn>
-        <GridColumn Field="@(nameof(PtItem.Assignee))" Title="Assignee" Width="120px">
+        <GridColumn Field="Assignee.FullName" Title="Assignee" Width="120px">
             <Template>
                 @{
                     var item = context as PtItem;
