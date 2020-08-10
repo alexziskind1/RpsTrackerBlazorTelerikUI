@@ -6,9 +6,9 @@
     <h1 class="h2">Backlog</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group mr-2">
-            <TelerikButton @onclick="@(e => SelectPreset("My"))">My Items</TelerikButton>
-            <TelerikButton @onclick="@(e => SelectPreset("Open"))">Open Items</TelerikButton>
-            <TelerikButton @onclick="@(e => SelectPreset("Closed"))">Closed Items</TelerikButton>
+            <TelerikButton OnClick="@(_ => SelectPreset("My"))">My Items</TelerikButton>
+            <TelerikButton OnClick="@(_ => SelectPreset("Open"))">Open Items</TelerikButton>
+            <TelerikButton OnClick="@(_ => SelectPreset("Closed"))">Closed Items</TelerikButton>
         </div>
 
         <div class="btn-group mr-2">
@@ -19,7 +19,7 @@
 </div>
 
 
-<TelerikGrid Height="550px" Data="PtItems" Pageable="true" Sortable="true" SelectionMode="GridSelectionMode.Single" SelectedItemsChanged="@((IEnumerable<PtItem> items) => ItemSelectedHandler(items))">
+<TelerikGrid Height="550px" Data="PtItems" Pageable="true" Sortable="true" OnRowClick="@OnRowClickHandler">
     <GridColumns>
         <GridColumn Field="@(nameof(PtItem.Type))" Title=" " Width="50px">
             <Template>
@@ -29,7 +29,7 @@
                 }
             </Template>
         </GridColumn>
-        <GridColumn Field="@(nameof(PtItem.Assignee))" Title="Assignee" Width="120px">
+        <GridColumn Field="Assignee.FullName" Title="Assignee" Width="120px">
             <Template>
                 @{
                     var item = context as PtItem;
@@ -109,13 +109,9 @@
         NavigationManager.NavigateTo($"/details/{itemId}/details");
     }
 
-    private void ItemSelectedHandler(IEnumerable<PtItem> items)
+    private void OnRowClickHandler(GridRowClickEventArgs args)
     {
-        var firstItem = items.FirstOrDefault();
-        if (firstItem != null)
-        {
-            RowSelected(firstItem.Id);
-        }
+        RowSelected((args.Item as PtItem).Id);
     }
 }
 
