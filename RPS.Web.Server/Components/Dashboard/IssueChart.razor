@@ -1,5 +1,5 @@
 ﻿
-<TelerikChart>
+<TelerikChart @ref="@ChartRef">
 
     <ChartTitle Text="All Issues"></ChartTitle>
 
@@ -30,4 +30,10 @@
 
 @code {
 
+    public TelerikChart ChartRef { get; set; }
+
+    public void RefreshTelerikChart()
+    {
+        ChartRef.Refresh();
+    }
 }
