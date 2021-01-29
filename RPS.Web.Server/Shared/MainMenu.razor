@@ -3,7 +3,35 @@
         <img src="images/rpslogo.png" class="logo">
     </NavLink>
     <nav class="my-2 my-md-0 mr-md-3">
-        <NavLink class="p-2 text-light" href="/dashboard">Dashboard</NavLink>
-        <NavLink class="p-2 text-light" href="/backlog">Backlog</NavLink>
+        <TelerikMenu Data="@MyMenuItems" UrlField="@nameof(MenuItem.Page)" Orientation="@orientation">
+        </TelerikMenu>
     </nav>
 </div>
+
+@code {
+    MenuOrientation orientation = MenuOrientation.Horizontal;
+
+    public IEnumerable<MenuItem> MyMenuItems { get; set; }
+
+    public class MenuItem
+    {
+        public string Text { get; set; }
+        public string Page { get; set; }
+        public List<MenuItem> Items { get; set; }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        List<MenuItem> mitems = new List<MenuItem> {
+            new MenuItem {  Text = "Dashboard", Page = "/dashboard" },
+            new MenuItem {  Text = "Backlog", Items = new List<MenuItem> {
+                    new MenuItem {  Text = "My Items", Page = "/backlog/my" },
+                    new MenuItem {  Text = "Open Items", Page = "/backlog/open" },
+                    new MenuItem {  Text = "Closed Items", Page = "/backlog/closed" }
+                }
+            }
+        };
+
+        MyMenuItems = mitems;
+    }
+}
