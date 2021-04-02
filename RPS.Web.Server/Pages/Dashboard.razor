@@ -48,38 +48,49 @@
     </div>
 
 
-    <div class="card">
-        <TelerikTileLayout Columns="2"
+        <TelerikTileLayout Columns="4"
                            RowHeight="230px"
                            Reorderable="true"
                            Resizable="true"
                            OnResize="@ItemResize">
-            
+
             <TileLayoutItems>
                 <TileLayoutItem HeaderText="Active Issues">
                     <Content>
-                        <div class="row">
                             <div class="col-12 col-lg-6 col-xl pb-4 active-issues">
                                 <span class="comp-label">
                                     <strong>@IssueCountActive</strong>
                                     <small>Active issues</small>
                                 </span>
                             </div>
+                    </Content>
+                </TileLayoutItem>
 
+                <TileLayoutItem HeaderText="Closed Issues">
+                    <Content>
                             <div class="col-12 col-lg-6 col-xl pb-4 text-success closed-issues">
                                 <span class="comp-label">
                                     <strong>@IssueCountClosed</strong>
                                     <small>Closed issues</small>
                                 </span>
                             </div>
+                    </Content>
+                </TileLayoutItem>
 
+                <TileLayoutItem HeaderText="Open Issues">
+                    <Content>
                             <div class="col-12 col-lg-6 col-xl pb-4 text-danger open-issues">
                                 <span class="comp-label">
                                     <strong>@IssueCountOpen</strong>
                                     <small>Open issues</small>
                                 </span>
                             </div>
+                    </Content>
+                </TileLayoutItem>
 
+
+                <TileLayoutItem HeaderText="Close Rate">
+                    <Content>
                             <div class="col-12 col-lg-6 col-xl pb-4 close-rate">
                                 <span class="comp-label">
                                     <strong>@IssueCloseRate</strong>
@@ -96,10 +107,10 @@
                                     on Oct 9, 2018
                                 </p>
                             </div>
-                        </div>
                     </Content>
                 </TileLayoutItem>
-                <TileLayoutItem HeaderText="All Issues" RowSpan="2">
+
+                <TileLayoutItem HeaderText="All Issues" ColSpan="4" RowSpan="2">
                     <Content>
                         <IssueChart Filter="Filter" @ref="IssueChartRef" />
                     </Content>
@@ -109,7 +120,7 @@
             </TileLayoutItems>
         </TelerikTileLayout>
     </div>
-</div>
+
 
 
 <link href="css/dashboard.css" rel="stylesheet" />
