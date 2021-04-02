@@ -1,5 +1,4 @@
-﻿
-<EditForm Model="Model" OnValidSubmit="HandleValidSubmit">
+﻿<EditForm Model="Model" OnValidSubmit="@HandleValidSubmit">
 
     <div class="form-group row">
         <label for="title" class="col-sm-2 col-form-label">Title</label>
@@ -55,6 +54,18 @@
         </div>
     </div>
 
+    <div class="form-group row">
+        <label for="attachment" class="col-sm-2 col-form-label">Attachment</label>
+        <div class="offset-sm-2 col-sm-10">
+            <TelerikUpload SaveUrl="@SaveUrl"
+                           SaveField="file"
+                           OnSelect="@OnSelectHandler"
+                           AllowedExtensions="@( new List<string>() { ".jpg", ".png", ".jpeg" } )"
+                           >
+            </TelerikUpload>
+        </div>
+    </div>
+
 
     <div class="form-group row">
         <div class="offset-sm-2 col-sm-10">
@@ -77,5 +88,31 @@
 </div>
 
 @code {
+    public string SaveUrl => ToAbsoluteUrl("api/upload/save");
 
+    public string ToAbsoluteUrl(string url)
+    {
+        return $"{NavigationManager.BaseUri}{url}";
+    }
+
+    Dictionary<string, bool> FilesValidationInfo { get; set; } = new Dictionary<string, bool>();
+
+    void OnSelectHandler(UploadSelectEventArgs e)
+    {
+        foreach (var item in e.Files)
+        {
+            if (!FilesValidationInfo.Keys.Contains(item.Id))
+            {
+                // nothing is assumed to be valid until the server returns an OK
+                FilesValidationInfo.Add(item.Id, IsSelectedFileValid(item));
+            }
+
+        }
+
+        bool IsSelectedFileValid(Telerik.Blazor.Components.Upload.UploadFileInfo file)
+        {
+            return !(file.InvalidExtension || file.InvalidMaxFileSize || file.InvalidMinFileSize);
+        }
+
+    }
 }
